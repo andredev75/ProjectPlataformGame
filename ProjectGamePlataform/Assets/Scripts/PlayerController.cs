@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public float raioDeVerificacao;
     public LayerMask layerDoChao;
 
+    public float tempoAtaque = 0.3f;
+    private bool atacando;
+
 
     void Start()
     {
@@ -30,10 +33,16 @@ public class PlayerController : MonoBehaviour
     {
         Mover();
         Pular();
+        Atacar();
     }
 
     void Mover()
     {
+        if (atacando == true) 
+        {
+            return;
+        }
+
         float h = Input.GetAxisRaw("Horizontal");
 
         Vector2 pos = transform.position;
@@ -67,21 +76,41 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, forcaPulo);
             anim.Play("player_jump");
-            StartCoroutine(Squash(new Vector3(1.5f, 1.7f, 1), 0.2f));
         }
+    }
+
+    void Atacar()
+    {
+        if (Input.GetKeyDown(KeyCode.J) && !atacando)
+        {
+            StartCoroutine(AtaqueCoroutine());
+        }
+    }
+
+    IEnumerator AtaqueCoroutine()
+    {
+        atacando = true;
+
+        float h = Input.GetAxisRaw("Horizontal");
+
+        if (noChao && h != 0)
+        {
+            anim.Play("player_attack_run");
+        }
+        else
+        {
+            anim.Play("player_attack_idle");
+        }
+
+    yield return new WaitForSeconds(tempoAtaque);
+
+    atacando = false;
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(verificadorDeChao.position, raioDeVerificacao);
-    }
-
-    IEnumerator Squash(Vector3 scale, float time)
-    {
-        transform.localScale = scale;
-        yield return new WaitForSeconds(time);
-        transform.localScale = new Vector3(1.5f, 1.5f, 1);
     }
 
 
