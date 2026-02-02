@@ -44,6 +44,10 @@ public class PlayerController : MonoBehaviour
     public GameObject afterImagePrefab;
     public float intervaloAfterImage = 0.05f;
 
+    [Header("Partículas")]
+    public ParticleSystem particulaPulo;
+    public ParticleSystem particulaDash;
+
 
     void Start()
     {
@@ -163,6 +167,7 @@ public class PlayerController : MonoBehaviour
 
         anim.Play("player_dash");
 
+
         float tempo = 0f;
 
         // 🔥 AFTER IMAGE DURANTE O DASH
@@ -241,6 +246,7 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = gravidadePadrao;
         }
     }
+
 
     void OnDrawGizmos()
     {

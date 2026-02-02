@@ -2859,6 +2859,7 @@ GameObject:
   - component: {fileID: 1577295742}
   - component: {fileID: 1577295741}
   - component: {fileID: 1577295746}
+  - component: {fileID: 1577295747}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -3065,6 +3066,23 @@ MonoBehaviour:
   dashCooldown: 0.5
   afterImagePrefab: {fileID: 336427038623464734, guid: 02fc71b50d758a64195bfc28017ff7f8, type: 3}
   intervaloAfterImage: 0.05
+  particulaPulo: {fileID: 5636331983409971762, guid: f740dbff811ce274f95f9f7842d79314, type: 3}
+  particulaDash: {fileID: 8379478584919918443, guid: 1c86b7195b59f3b48a7818e0868ab813, type: 3}
+--- !u!114 &1577295747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577295740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b825d1f33ab9614ea0c284b911c7e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EfeitoPoeira
+  prefabPoeira: {fileID: 316264545836443276, guid: f084bde773baa1e47aaebb49dfd1ea6e, type: 3}
+  localDaPoeira: {fileID: 278068665}
+  tempoDeVidaPoeira: 0.15
 --- !u!1 &1744037833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3144,6 +3162,90 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.89, y: -3.31, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1802580399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1802580401}
+  - component: {fileID: 1802580400}
+  m_Layer: 0
+  m_Name: Freeform Light 2D (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1802580400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802580399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 2
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.24
+  m_Color: {r: 0, g: 1, b: 0.7942071, a: 1}
+  m_Intensity: 1.13
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.364
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 11.32925, y: 1.9441001, z: 0}
+    m_Extent: {x: 6.67795, y: 7.6047, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 1.55
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: 10.812512, y: -4.1101875, z: 0}
+  - {x: 16.45745, y: -2.8941188, z: 0}
+  - {x: 6.2005434, y: 7.99902, z: 0}
+  - {x: 7.302617, y: -2.0512314, z: 0}
+--- !u!4 &1802580401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802580399}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.22, y: -1.1006241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3333,4 +3435,5 @@ SceneRoots:
   - {fileID: 2038347124}
   - {fileID: 1744037835}
   - {fileID: 2046763870}
+  - {fileID: 1802580401}
   - {fileID: 1577295745}
