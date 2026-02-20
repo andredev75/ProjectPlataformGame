@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private float gravidadePadrao = 3f;
     public float velocidade = 5f;
+    public bool atacando;
 
     [Header("Pulo")]
     public float forcaPulo = 7f;
@@ -28,10 +29,6 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Buffer")]
     public float jumpBufferTempo = 0.15f;
     private float jumpBufferContador;
-
-    [Header("Ataque")]
-    public float tempoAtaque = 0.3f;
-    private bool atacando;
 
     [Header("Dash")]
     public float dashForca = 15f;
@@ -61,7 +58,6 @@ public class PlayerController : MonoBehaviour
     {
         Mover();
         Pular();
-        Atacar();
         Dash();
         GravidadeDinamica();
     }
@@ -69,7 +65,7 @@ public class PlayerController : MonoBehaviour
     void Mover()
     {
         
-        if (atacando == true || dashando == true) 
+        if (dashando == true || atacando == true) 
         {
             return;
         }
@@ -82,8 +78,10 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
 
         // vira para o lado certo
-        if (h > 0) sr.flipX = false;
-        if (h < 0) sr.flipX = true;
+        Vector3 escala = transform.localScale;
+        if (h > 0) escala.x = Mathf.Abs(escala.x);
+        if (h < 0) escala.x = -Mathf.Abs(escala.x);
+        transform.localScale = escala;
 
         if (noChao == true && h != 0)
         {
@@ -137,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.K) && podeDashar && !dashando && !atacando)
+        if (Input.GetKeyDown(KeyCode.K) && podeDashar && !dashando)
         {
             StartCoroutine(DashCoroutine());
         }
@@ -156,7 +154,8 @@ public class PlayerController : MonoBehaviour
         // Se estiver parado, dash na direção que o personagem está olhando
         if (direcao == Vector2.zero)
         {
-            direcao = sr.flipX ? Vector2.left : Vector2.right;
+            float direcaoVisual = Mathf.Sign(transform.localScale.x);
+            direcao = Vector2.right * direcaoVisual;
         }
 
         direcao.Normalize();
@@ -187,41 +186,18 @@ public class PlayerController : MonoBehaviour
         podeDashar = true;
     }
 
+    public bool PodeAtacar()
+    {
+        return !dashando;
+    }
+
     void CriarAfterImage()
     {
         GameObject img = Instantiate(afterImagePrefab, transform.position, transform.rotation);
 
         SpriteRenderer imgSR = img.GetComponent<SpriteRenderer>();
         imgSR.sprite = sr.sprite;
-        imgSR.flipX = sr.flipX;
-    }
-
-    void Atacar()
-    {
-        if (Input.GetKeyDown(KeyCode.J) && !atacando)
-        {
-            StartCoroutine(AtaqueCoroutine());
-        }
-    }
-
-    IEnumerator AtaqueCoroutine()
-    {
-        atacando = true;
-
-        float h = Input.GetAxisRaw("Horizontal");
-
-        if (noChao && h != 0)
-        {
-            anim.Play("player_attack_run");
-        }
-        else
-        {
-            anim.Play("player_attack_idle");
-        }
-
-        yield return new WaitForSeconds(tempoAtaque);
-
-        atacando = false;
+        img.transform.localScale = transform.localScale;
     }
 
     void GravidadeDinamica()
